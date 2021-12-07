@@ -43,6 +43,10 @@ spec:
           fi
         name: frontend-check
         image: busybox:latest
+        securityContext:
+          # user: nobody
+          runAsUser: 65534
+          runAsGroup: 65534
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
