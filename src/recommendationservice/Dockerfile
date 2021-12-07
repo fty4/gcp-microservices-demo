@@ -32,6 +32,10 @@ RUN pip install -r requirements.txt
 # add files into working directory
 COPY . .
 
+RUN chown -R nobody /recommendationservice
+# user: nobody
+USER 65534
+
 # set listen port
 ENV PORT "8080"
 EXPOSE 8080

@@ -41,6 +41,10 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY . .
 
+RUN chown -R nobody:nobody /usr/src/app
+# user: nobody
+USER 65534
+
 EXPOSE 7000
 
 ENTRYPOINT [ "node", "server.js" ]

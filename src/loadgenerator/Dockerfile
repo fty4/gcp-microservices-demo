@@ -33,6 +33,10 @@ COPY --from=builder /install /usr/local
 # Add application code.
 COPY locustfile.py .
 
+RUN chown -R nobody /loadgen
+# user: nobody
+USER 65534
+
 # enable gevent support in debugger
 ENV GEVENT_SUPPORT=True
 

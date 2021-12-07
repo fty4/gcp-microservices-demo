@@ -39,5 +39,9 @@ COPY ./static ./static
 # See https://golang.org/pkg/runtime/
 ENV GOTRACEBACK=single
 
+RUN chown -R nobody /src
+# user: nobody
+USER 65534
+
 EXPOSE 8080
 ENTRYPOINT ["/src/server"]
