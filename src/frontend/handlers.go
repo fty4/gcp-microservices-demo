@@ -42,6 +42,7 @@ type platformDetails struct {
 
 var (
 	isCymbalBrand = "true" == strings.ToLower(os.Getenv("CYMBAL_BRANDING"))
+	externalUrl   = os.Getenv("EXTERNAL_URL")
 	templates     = template.Must(template.New("").
 			Funcs(template.FuncMap{
 			"renderMoney":        renderMoney,
@@ -117,6 +118,7 @@ func (fe *frontendServer) homeHandler(w http.ResponseWriter, r *http.Request) {
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
 		"deploymentDetails": getDeploymentDetails(r),
+		"external_url":      externalUrl,
 	}); err != nil {
 		log.Error(err)
 	}
@@ -202,6 +204,7 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
 		"deploymentDetails": getDeploymentDetails(r),
+		"external_url":      externalUrl,
 	}); err != nil {
 		log.Println(err)
 	}
@@ -227,7 +230,7 @@ func (fe *frontendServer) addToCartHandler(w http.ResponseWriter, r *http.Reques
 		renderHTTPError(log, r, w, errors.Wrap(err, "failed to add to cart"), http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("location", "/cart")
+	w.Header().Set("location", externalUrl+"/cart")
 	w.WriteHeader(http.StatusFound)
 }
 
@@ -239,7 +242,7 @@ func (fe *frontendServer) emptyCartHandler(w http.ResponseWriter, r *http.Reques
 		renderHTTPError(log, r, w, errors.Wrap(err, "failed to empty cart"), http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("location", "/")
+	w.Header().Set("location", externalUrl+"/")
 	w.WriteHeader(http.StatusFound)
 }
 
@@ -314,6 +317,7 @@ func (fe *frontendServer) viewCartHandler(w http.ResponseWriter, r *http.Request
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
 		"deploymentDetails": getDeploymentDetails(r),
+		"external_url":      externalUrl,
 	}); err != nil {
 		log.Println(err)
 	}
@@ -387,6 +391,7 @@ func (fe *frontendServer) placeOrderHandler(w http.ResponseWriter, r *http.Reque
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
 		"deploymentDetails": getDeploymentDetails(r),
+		"external_url":      externalUrl,
 	}); err != nil {
 		log.Println(err)
 	}
@@ -400,7 +405,7 @@ func (fe *frontendServer) logoutHandler(w http.ResponseWriter, r *http.Request) 
 		c.MaxAge = -1
 		http.SetCookie(w, c)
 	}
-	w.Header().Set("Location", "/")
+	w.Header().Set("Location", externalUrl+"/")
 	w.WriteHeader(http.StatusFound)
 }
 
@@ -419,7 +424,7 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 	}
 	referer := r.Header.Get("referer")
 	if referer == "" {
-		referer = "/"
+		referer = externalUrl + "/"
 	}
 	w.Header().Set("Location", referer)
 	w.WriteHeader(http.StatusFound)
