@@ -34,13 +34,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/cart.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/order.css">
+    <link rel="stylesheet" type="text/css" href="{{ $.external_path }}/static/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ $.external_path }}/static/styles/cart.css">
+    <link rel="stylesheet" type="text/css" href="{{ $.external_path }}/static/styles/order.css">
     {{ if $.is_cymbal_brand }}
-    <link rel='shortcut icon' type='image/x-icon' href='/static/favicon-cymbal.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='{{ $.external_path }}/static/favicon-cymbal.ico' />
     {{ else }}
-    <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='{{ $.external_path }}/static/favicon.ico' />
     {{ end }}
 </head>
 
@@ -53,11 +53,11 @@
         </div>
         <div class="navbar sub-navbar">
             <div class="container d-flex justify-content-between">
-                <a href="/" class="navbar-brand d-flex align-items-center">
+                <a href="{{ $.external_path }}/" class="navbar-brand d-flex align-items-center">
                     {{ if $.is_cymbal_brand }}
-                    <img src="/static/icons/Cymbal_NavLogo.svg" alt="" class="top-left-logo-cymbal" />
+                    <img src="{{ $.external_path }}/static/icons/Cymbal_NavLogo.svg" alt="" class="top-left-logo-cymbal" />
                     {{ else }}
-                    <img src="/static/icons/Hipster_NavLogo.svg" alt="" class="top-left-logo" />
+                    <img src="{{ $.external_path }}/static/icons/Hipster_NavLogo.svg" alt="" class="top-left-logo" />
                     {{ end }}
                 </a>
                 <div class="controls">
@@ -66,20 +66,20 @@
                     <div class="h-controls">
                         <div class="h-control">
                             <span class="icon currency-icon"> {{ renderCurrencyLogo $.user_currency}}</span>
-                            <form method="POST" class="controls-form" action="/setCurrency" id="currency_form" >
+                            <form method="POST" class="controls-form" action="{{ $.external_path }}/setCurrency" id="currency_form" >
                                 <select name="currency_code" onchange="document.getElementById('currency_form').submit();">
                                         {{range $.currencies}}
                                     <option value="{{.}}" {{if eq . $.user_currency}}selected="selected"{{end}}>{{.}}</option>
                                     {{end}}
                                 </select>
                             </form>
-                            <img src="/static/icons/Hipster_DownArrow.svg" alt="" class="icon arrow" />
+                            <img src="{{ $.external_path }}/static/icons/Hipster_DownArrow.svg" alt="" class="icon arrow" />
                         </div>
                     </div>
                     {{ end }}
 
-                    <a href="/cart" class="cart-link">
-                        <img src="/static/icons/Hipster_CartIcon.svg" alt="Cart icon" class="logo" title="Cart" />
+                    <a href="{{ $.external_path }}/cart" class="cart-link">
+                        <img src="{{ $.external_path }}/static/icons/Hipster_CartIcon.svg" alt="Cart icon" class="logo" title="Cart" />
                         {{ if $.cart_size }}
                         <span class="cart-size-circle">{{$.cart_size}}</span>
                         {{ end }}
