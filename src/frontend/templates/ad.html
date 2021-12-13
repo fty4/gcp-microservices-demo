@@ -15,12 +15,14 @@
 -->
 
 {{ define "text_ad" }}
+{{ with $.ad }}
 <div class="container py-3 px-lg-5 py-lg-5">
     <div role="alert">
         <strong>Ad</strong>
-        <a href="{{.RedirectUrl}}" rel="nofollow" target="_blank">
+        <a href="{{ $.external_url }}{{.RedirectUrl}}" rel="nofollow" target="_blank">
             {{.Text}}
         </a>
     </div>
 </div>
+{{ end }}
 {{ end }}
