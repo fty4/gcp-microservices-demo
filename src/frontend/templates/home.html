@@ -43,8 +43,8 @@
 
           {{ range $.products }}
           <div class="col-md-4 hot-product-card">
-            <a href="/product/{{.Item.Id}}">
-              <img alt="" src="{{.Item.Picture}}">
+            <a href="{{ $.external_path }}/product/{{.Item.Id}}">
+              <img alt="" src="{{ $.external_path }}{{.Item.Picture}}">
               <div class="hot-product-card-img-overlay"></div>
             </a>
             <div>

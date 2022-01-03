@@ -21,11 +21,11 @@
         <div class="col-xl-10 offset-xl-1">
           <h2>You May Also Like</h2>
           <div class="row">
-            {{range . }}
+            {{range .recommendations }}
             <div class="col-md-3">
               <div>
-                <a href="/product/{{.Id}}">
-                  <img alt="" src="{{.Picture}}">
+                <a href="{{ $.external_path }}/product/{{.Id}}">
+                  <img alt="" src="{{ $.external_path }}{{.Picture}}">
                 </a>
                 <div>
                   <h5>
