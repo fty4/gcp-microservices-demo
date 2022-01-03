@@ -43,5 +43,9 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.6 && \
 WORKDIR /app
 COPY --from=builder /app .
 
+RUN chown -R nobody /app
+# user: nobody
+USER 65534
+
 EXPOSE 9555
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]

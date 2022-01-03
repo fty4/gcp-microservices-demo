@@ -40,5 +40,9 @@ COPY --from=builder /checkoutservice /src/checkoutservice
 # See https://golang.org/pkg/runtime/
 ENV GOTRACEBACK=single
 
+RUN chown nobody /src/checkoutservice
+# user: nobody
+USER 65534
+
 EXPOSE 5050
 ENTRYPOINT ["/src/checkoutservice"]

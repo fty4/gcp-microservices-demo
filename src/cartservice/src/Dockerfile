@@ -27,5 +27,10 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.6 && \
     chmod +x /bin/grpc_health_probe
 WORKDIR /app
 COPY --from=builder /cartservice .
+
+RUN chown -R nobody /app
+# user: nobody
+USER 65534
+
 ENV ASPNETCORE_URLS http://*:7070
 ENTRYPOINT ["/app/cartservice"]
